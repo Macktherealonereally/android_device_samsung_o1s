@@ -1,0 +1,27 @@
+# PHASE-1 BRING-UP ONLY - remove before any "real" build.
+#
+# universal2100-common sets sys.usb.configfs=2 (USB Gadget HAL), so AOSP's
+# init.usb*.rc never starts adbd; only system_server (via the Gadget HAL) does.
+# If boot stalls before the framework is up there is no adb at all.
+# This binds ffs.adb to the gadget on the 'boot' trigger: after post-fs-data
+# (APEXes active - adbd lives in com.android.adbd) and after early-boot (the
+# device usb rc has created /config/usb_gadget/g1 and mounted ffs.adb).
+# Lives on /system_ext so it runs in init's own context, not vendor_init.
+# Guarded by ro.adb.secure=0 (build with WITH_ADB_INSECURE=true), otherwise
+# adbd would demand RSA auth that nobody can confirm on a fresh /data.
+
+on boot && property:ro.adb.secure=0
+    write /config/usb_gadget/g1/idVendor 0x18D1
+    write /config/usb_gadget/g1/idProduct 0x4EE7
+    mkdir /config/usb_gadget/g1/configs/b.1/strings/0x409 0770 shell shell
+    write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "adb"
+    symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f1
+    setprop debug.o1s.early_adb 1
+    start adbd
+
+# adbd sets sys.usb.ffs.ready=1 once its FunctionFS endpoints are up; bind the
+# UDC exactly once. The Gadget HAL rebinds (UDC none -> 10e00000.usb) later.
+on property:debug.o1s.early_adb=1 && property:sys.usb.ffs.ready=1
+    write /config/usb_gadget/g1/UDC 10e00000.usb
+    setprop debug.o1s.early_adb 2
+
