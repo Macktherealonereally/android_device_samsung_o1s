@@ -247,6 +247,7 @@ pdic_max77705.ko
 sec_direct_charger.ko
 sec_pd.ko
 sec-battery.ko
+mcps.ko
 exynos-bts.ko
 exynos-btsops2100.ko
 spu_verify.ko
