@@ -5,12 +5,3 @@
 
 soong_namespace {
 }
-
-// PHASE-1 BRING-UP ONLY: early adb before system_server / USB Gadget HAL.
-prebuilt_etc {
-    name: "init.o1s.debug",
-    src: "init/init.o1s.debug.rc",
-    filename: "init.o1s.debug.rc",
-    sub_dir: "init",
-    system_ext_specific: true,
-}

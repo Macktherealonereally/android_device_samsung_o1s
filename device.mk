@@ -28,10 +28,6 @@ PRODUCT_COPY_FILES += \
     vendor/samsung/o1s/proprietary/vendor/firmware/y792_o1.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/y792_o1.bin \
     vendor/samsung/o1s/proprietary/vendor/firmware/y792_o1.bin:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/vendor/firmware/y792_o1.bin
 
-# PHASE-1 BRING-UP ONLY: early adb (see init/init.o1s.debug.rc)
-PRODUCT_PACKAGES += \
-    init.o1s.debug
-
 # Sensors
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sensors/hals.conf:$(TARGET_COPY_OUT_VENDOR)/etc/sensors/hals.conf
