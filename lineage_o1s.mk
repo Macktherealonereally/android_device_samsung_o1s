@@ -13,6 +13,18 @@ $(call inherit-product, device/samsung/o1s/device.mk)
 # Inherit from common lineage configuration
 $(call inherit-product, vendor/lineage/config/common_full_phone.mk)
 
+# Google apps (MindTheGapps), only when vendor/gapps is synced and not
+# opted out with WITHOUT_GAPPS=true. TARGET_IS_GROUPER selects the minimal
+# set (GmsCore, GSF, Play Store, sync adapters); it must be set before the
+# inherit because arm64-vendor.mk tests it at parse time.
+# Do not set WITH_GMS: it would drop the product reserved size.
+ifneq ($(WITHOUT_GAPPS),true)
+ifneq ($(wildcard vendor/gapps/arm64/arm64-vendor.mk),)
+TARGET_IS_GROUPER := true
+$(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
+endif
+endif
+
 PRODUCT_NAME := lineage_o1s
 PRODUCT_DEVICE := o1s
 PRODUCT_BRAND := samsung
