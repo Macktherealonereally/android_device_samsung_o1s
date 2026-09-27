@@ -22,6 +22,14 @@ ifneq ($(WITHOUT_GAPPS),true)
 ifneq ($(wildcard vendor/gapps/arm64/arm64-vendor.mk),)
 TARGET_IS_GROUPER := true
 $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
+# Circle to Search: MindTheGapps already declares the CONTEXTUAL_SEARCH
+# feature and points config_defaultContextualSearchPackageName at the
+# Google app, but the minimal set leaves the Google app out, so Launcher3
+# swallows long-press home / nav handle without falling back. Ship it.
+# Set WITHOUT_GOOGLE_APP=true to keep the minimal set.
+ifneq ($(WITHOUT_GOOGLE_APP),true)
+PRODUCT_PACKAGES += Velvet
+endif
 endif
 endif
 
