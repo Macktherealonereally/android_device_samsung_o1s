@@ -35,6 +35,12 @@ PRODUCT_PACKAGES += \
     OpenEUICC
 endif
 
+# Fonts - optional One UI-like fonts (Inter, Manrope; OFL-1.1). Not applied
+# by default: adds the fonts + android.theme.customization.font overlays, the
+# user picks one via theme_customization_overlay_packages. No-op unless
+# vendor/o1s-fonts is present.
+$(call inherit-product-if-exists, vendor/o1s-fonts/fonts.mk)
+
 # Recovery/vendor_boot firmware
 PRODUCT_COPY_FILES += \
     vendor/samsung/o1s/proprietary/vendor/firmware/y792_o1.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/y792_o1.bin \
