@@ -30,6 +30,16 @@ $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
 ifneq ($(WITHOUT_GOOGLE_APP),true)
 PRODUCT_PACKAGES += Velvet
 endif
+# AMTG ("Advanced MindTheGapps"): the set above plus MindTheGapps' extras
+# and Pixel apps (Google Phone, Messages, Contacts, Gboard, Calendar, Clock,
+# Photos, Android System Intelligence, Device Health Services) from
+# vendor/amtg. Only with WITH_AMTG=true, so NG and MTG builds are unchanged.
+ifeq ($(WITH_AMTG),true)
+ifeq ($(wildcard vendor/amtg/amtg.mk),)
+$(error WITH_AMTG=true needs vendor/amtg)
+endif
+$(call inherit-product, vendor/amtg/amtg.mk)
+endif
 endif
 endif
 
