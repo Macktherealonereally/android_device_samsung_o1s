@@ -22,6 +22,9 @@ ifneq ($(WITHOUT_GAPPS),true)
 ifneq ($(wildcard vendor/gapps/arm64/arm64-vendor.mk),)
 TARGET_IS_GROUPER := true
 $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
+# Privileged permissions that Play-updated GmsCore needs but MindTheGapps'
+# allowlist lacks (see configs/permissions/privapp-permissions-gms-extra.xml).
+PRODUCT_PACKAGES += privapp-permissions-gms-extra.xml
 # Circle to Search: MindTheGapps already declares the CONTEXTUAL_SEARCH
 # feature and points config_defaultContextualSearchPackageName at the
 # Google app, but the minimal set leaves the Google app out, so Launcher3

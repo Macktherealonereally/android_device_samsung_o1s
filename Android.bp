@@ -5,3 +5,11 @@
 
 soong_namespace {
 }
+
+// Extra GmsCore privapp grants, installed only with GApps (lineage_o1s.mk).
+prebuilt_etc {
+    name: "privapp-permissions-gms-extra.xml",
+    src: "configs/permissions/privapp-permissions-gms-extra.xml",
+    sub_dir: "permissions",
+    product_specific: true,
+}

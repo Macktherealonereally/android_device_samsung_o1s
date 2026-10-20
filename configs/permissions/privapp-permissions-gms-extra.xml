@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: The LineageOS Project
+     SPDX-License-Identifier: Apache-2.0
+
+     Extra privileged permissions for Google Play services (GmsCore), on top of
+     MindTheGapps' privapp-permissions-google-product.xml. Installed to
+     /product/etc/permissions (GmsCore is in /product/priv-app) only when GApps
+     are built (MTG, AMTG). SystemConfig merges every <privapp-permissions> block
+     of a package within a partition, so this only adds grants.
+
+     Play services 26.40.x (Play-updated) requests these. Without
+     GET_ROLE_HOLDERS adding a Google account crashes com.google.android.gms.ui
+     (DeviceDoctorHandler: SecurityException in getRoleHoldersAsUser) and token
+     fetches fail with AuthSecurityError. All are signature|privileged in
+     frameworks/base (OBSERVE_ROLE_HOLDERS and some others only behind their
+     feature flags); a grant for an undefined permission is ignored.
+-->
+<permissions>
+    <privapp-permissions package="com.google.android.gms">
+        <permission name="android.permission.ACCESS_COMPANION_INFO"/>
+        <permission name="android.permission.GET_ROLE_HOLDERS"/>
+        <permission name="android.permission.INSTALL_LOCATION_PROVIDER"/>
+        <permission name="android.permission.LOG_COMPAT_CHANGE"/>
+        <permission name="android.permission.MANAGE_SECURE_LOCK_DEVICE"/>
+        <permission name="android.permission.OBSERVE_ROLE_HOLDERS"/>
+        <permission name="android.permission.PACKET_KEEPALIVE_OFFLOAD"/>
+        <permission name="android.permission.READ_COMPAT_CHANGE_CONFIG"/>
+    </privapp-permissions>
+</permissions>
