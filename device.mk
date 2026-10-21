@@ -42,6 +42,12 @@ endif
 # vendor/o1s-fonts is present.
 $(call inherit-product-if-exists, vendor/o1s-fonts/fonts.mk)
 
+# Apps for every variant (NG, MTG, AMTG): Aurora Store as a normal presigned
+# app in /product/app, pinned by sha256 and signer. Outside the GApps gates on
+# purpose. No-op unless vendor/mack-apps is present; with it, a missing or
+# mismatching APK stops the build (vendor/mack-apps/fetch-blobs.sh).
+$(call inherit-product-if-exists, vendor/mack-apps/mack-apps.mk)
+
 # Recovery/vendor_boot firmware
 PRODUCT_COPY_FILES += \
     vendor/samsung/o1s/proprietary/vendor/firmware/y792_o1.bin:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/y792_o1.bin \
