@@ -25,6 +25,12 @@ $(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
 # Privileged permissions that Play-updated GmsCore needs but MindTheGapps'
 # allowlist lacks (see configs/permissions/privapp-permissions-gms-extra.xml).
 PRODUCT_PACKAGES += privapp-permissions-gms-extra.xml
+# The privileged permissions Pixel's allowlist grants to the other MTG-sourced
+# Google apps, so their Play updates get them too
+# (configs/permissions/privapp-permissions-google-pixel-extra*.xml).
+PRODUCT_PACKAGES += \
+    privapp-permissions-google-pixel-extra.xml \
+    privapp-permissions-google-pixel-extra-system-ext.xml
 # Circle to Search: MindTheGapps already declares the CONTEXTUAL_SEARCH
 # feature and points config_defaultContextualSearchPackageName at the
 # Google app, but the minimal set leaves the Google app out, so Launcher3
