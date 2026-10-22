@@ -13,3 +13,20 @@ prebuilt_etc {
     sub_dir: "permissions",
     product_specific: true,
 }
+
+// Pixel-superset privapp grants for the MindTheGapps-sourced Google apps,
+// installed only with GApps (lineage_o1s.mk). SetupWizard is in system_ext,
+// so its block goes to that partition's allowlist.
+prebuilt_etc {
+    name: "privapp-permissions-google-pixel-extra.xml",
+    src: "configs/permissions/privapp-permissions-google-pixel-extra.xml",
+    sub_dir: "permissions",
+    product_specific: true,
+}
+
+prebuilt_etc {
+    name: "privapp-permissions-google-pixel-extra-system-ext.xml",
+    src: "configs/permissions/privapp-permissions-google-pixel-extra-system-ext.xml",
+    sub_dir: "permissions",
+    system_ext_specific: true,
+}

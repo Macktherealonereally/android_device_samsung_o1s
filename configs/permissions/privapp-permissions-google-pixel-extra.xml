@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: 2026 Macktherealonereally
+     SPDX-License-Identifier: Apache-2.0
+
+     Privileged permissions that Pixel's own allowlist grants to these Google
+     apps but MindTheGapps' (older) allowlist does not. Installed to
+     /product/etc/permissions only when GApps are built (MTG, AMTG).
+     SystemConfig merges every <privapp-permissions> block of a package within a
+     partition, so this only adds grants.
+
+     Why: a Play-updated priv-app gets a newly requested privileged permission
+     only if the factory partition's allowlist names it (frameworks/base
+     "updated system app" grant). Without it the permission is silently not
+     granted and the app can crash, as Play services did with GET_ROLE_HOLDERS
+     (privapp-permissions-gms-extra.xml). A grant applies only if the installed,
+     Google-signed APK requests the permission.
+
+     Source: Pixel allowlists of stallion CP1A.260505.005 (Evolution-X/vendor_gms
+     bka 89c3940a, privapp-permissions-google-p.xml / -se.xml), minus everything
+     MindTheGapps, AMTG and gms-extra already grant or deny; only permissions that
+     frameworks/base defines as signature|privileged (signatureOrSystem included).
+-->
+<permissions>
+    <privapp-permissions package="com.google.android.gms">
+        <permission name="android.permission.BYPASS_CONCURRENT_RECORD_AUDIO_RESTRICTION"/>
+        <permission name="android.permission.REGISTER_CALL_PROVIDER"/>
+        <permission name="android.permission.USE_RESERVED_DISK"/>
+        <permission name="com.android.voicemail.permission.READ_VOICEMAIL"/>
+    </privapp-permissions>
+    <privapp-permissions package="com.android.vending">
+        <permission name="android.permission.HIDE_STATUS_BAR_NOTIFICATION"/>
+    </privapp-permissions>
+    <privapp-permissions package="com.google.android.googlequicksearchbox">
+        <permission name="android.permission.SHOW_KEYGUARD_MESSAGE"/>
+        <permission name="android.permission.STATUS_BAR"/>
+    </privapp-permissions>
+    <privapp-permissions package="com.google.android.apps.wellbeing">
+        <permission name="android.permission.REBOOT"/>
+    </privapp-permissions>
+    <privapp-permissions package="com.google.android.apps.restore">
+        <permission name="android.permission.ACCESS_LAUNCHER_DATA"/>
+        <permission name="android.permission.READ_WIFI_CREDENTIAL"/>
+    </privapp-permissions>
+    <privapp-permissions package="com.google.android.projection.gearhead">
+        <permission name="android.permission.MANAGE_USERS"/>
+        <permission name="android.permission.POWER_SAVER"/>
+        <permission name="android.permission.TETHER_PRIVILEGED"/>
+    </privapp-permissions>
+</permissions>
