@@ -31,9 +31,11 @@ SPDX-License-Identifier: Apache-2.0
         <item>0</item>  <item>sd|hd|fhd|uhd</item>  <item>30</item>
         <item>1</item>  <item>sd|hd|fhd|uhd</item>  <item>30</item>
         <!-- The camera provider advertises [60, 60] (samsungCameraVars.high_fps_video), which
-             the HAL delivers at 1080p on every camera. Keep 60 fps off for 480p/720p (no
-             60 fps mode in the HAL's video table) and 2160p (not validated yet). -->
-        <item>0</item>  <item>sd|hd|uhd</item>  <item>-60</item>
+             the HAL delivers at 1080p on every camera and at 2160p on the rear main camera
+             (validated: steady 59.9 fps). Keep 60 fps off for 480p/720p (no 60 fps mode in
+             the HAL's video table) and for 2160p on the other cameras (no 2160p60 mode, or
+             not validated yet). -->
+        <item>0</item>  <item>sd|hd</item>      <item>-60</item>
         <item>1</item>  <item>sd|hd|uhd</item>  <item>-60</item>
         <item>2</item>  <item>sd|hd|uhd</item>  <item>-60</item>
         <item>3</item>  <item>sd|hd|uhd</item>  <item>-60</item>
